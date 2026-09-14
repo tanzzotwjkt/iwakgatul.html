@@ -1,0 +1,645 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iwak Gatul - Toko Online</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f7f9;
+    color: #1f2937;
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(135deg, #087f5b, #12b886);
+    color: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(0,0,0,.12);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.cart-btn {
+    background: white;
+    color: #087f5b;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* HERO */
+.hero {
+    padding: 55px 7%;
+    background: linear-gradient(135deg, #e6fcf5, #f8fffd);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.hero-text {
+    max-width: 600px;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
+    color: #087f5b;
+}
+
+.hero p {
+    font-size: 17px;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+.hero-badge {
+    font-size: 80px;
+}
+
+/* SEARCH */
+.search-box {
+    padding: 25px 7%;
+}
+
+.search-box input {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px 18px;
+    border: 1px solid #d1d5db;
+    border-radius: 14px;
+    outline: none;
+    font-size: 15px;
+}
+
+/* PRODUCTS */
+.container {
+    padding: 10px 7% 50px;
+}
+
+.section-title {
+    margin-bottom: 20px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,.07);
+    transition: .25s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,.12);
+}
+
+.product-img {
+    height: 170px;
+    background: linear-gradient(135deg, #d3f9d8, #e6fcf5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 75px;
+}
+
+.card-content {
+    padding: 18px;
+}
+
+.card h3 {
+    margin-bottom: 8px;
+}
+
+.price {
+    color: #087f5b;
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 14px;
+}
+
+.add-btn {
+    width: 100%;
+    border: none;
+    background: #087f5b;
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.add-btn:hover {
+    background: #066b4c;
+}
+
+/* CART */
+.cart-panel {
+    position: fixed;
+    right: -420px;
+    top: 0;
+    width: 390px;
+    max-width: 100%;
+    height: 100vh;
+    background: white;
+    z-index: 200;
+    padding: 25px;
+    box-shadow: -5px 0 25px rgba(0,0,0,.15);
+    transition: .3s;
+    overflow-y: auto;
+}
+
+.cart-panel.active {
+    right: 0;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.close-btn {
+    border: none;
+    background: #f1f5f9;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 0;
+    border-bottom: 1px solid #eee;
+    gap: 10px;
+}
+
+.qty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.qty button {
+    border: none;
+    background: #e6fcf5;
+    color: #087f5b;
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.total {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 2px solid #eee;
+    font-size: 21px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkout {
+    margin-top: 20px;
+}
+
+.checkout input,
+.checkout textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    outline: none;
+}
+
+.order-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #25D366;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 25px;
+    background: #073b2d;
+    color: white;
+    margin-top: 30px;
+}
+
+/* MOBILE */
+@media(max-width:600px) {
+    .hero {
+        padding: 40px 6%;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero-badge {
+        font-size: 55px;
+    }
+
+    .container,
+    .search-box {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .cart-panel {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🐟 Iwak Gatul</div>
+    <button class="cart-btn" onclick="toggleCart()">
+        🛒 Keranjang (<span id="cartCount">0</span>)
+    </button>
+</header>
+
+<section class="hero">
+    <div class="hero-text">
+        <h1>Iwak Gatul Segar & Lezat</h1>
+        <p>
+            Nikmati pilihan Iwak Gatul berkualitas dengan harga terjangkau.
+            Cocok untuk lauk sehari-hari dan keluarga.
+        </p>
+    </div>
+
+    <div class="hero-badge">🐟</div>
+</section>
+
+<div class="search-box">
+    <input
+        type="text"
+        id="search"
+        placeholder="🔎 Cari produk..."
+        onkeyup="searchProduct()"
+    >
+</div>
+
+<main class="container">
+    <div class="section-title">
+        <h2>Produk Kami</h2>
+        <p>Pilih produk favoritmu</p>
+    </div>
+
+    <div class="products" id="products"></div>
+</main>
+
+<!-- CART -->
+<div class="cart-panel" id="cartPanel">
+
+    <div class="cart-header">
+        <h2>🛒 Keranjang</h2>
+        <button class="close-btn" onclick="toggleCart()">✕</button>
+    </div>
+
+    <div id="cartItems"></div>
+
+    <div class="total">
+        <span>Total</span>
+        <span id="totalPrice">Rp0</span>
+    </div>
+
+    <div class="checkout">
+        <h3 style="margin-bottom:12px;">Data Pembeli</h3>
+
+        <input
+            type="text"
+            id="customerName"
+            placeholder="Nama lengkap"
+        >
+
+        <textarea
+            id="customerAddress"
+            rows="3"
+            placeholder="Alamat pengiriman"
+        ></textarea>
+
+        <button class="order-btn" onclick="orderWhatsApp()">
+            📲 Pesan via WhatsApp
+        </button>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Iwak Gatul • Segar, Lezat, Bersahabat
+</footer>
+
+<script>
+
+const products = [
+    {
+        id: 1,
+        name: "Iwak Gatul Original",
+        price: 15000,
+        icon: "🐟"
+    },
+    {
+        id: 2,
+        name: "Iwak Gatul Pedas",
+        price: 17000,
+        icon: "🌶️"
+    },
+    {
+        id: 3,
+        name: "Iwak Gatul Crispy",
+        price: 18000,
+        icon: "🍽️"
+    },
+    {
+        id: 4,
+        name: "Iwak Gatul Jumbo",
+        price: 25000,
+        icon: "🐠"
+    },
+    {
+        id: 5,
+        name: "Paket Hemat",
+        price: 40000,
+        icon: "📦"
+    },
+    {
+        id: 6,
+        name: "Paket Keluarga",
+        price: 65000,
+        icon: "👨‍👩‍👧‍👦"
+    }
+];
+
+let cart = [];
+
+function formatRupiah(number) {
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0
+    }).format(number);
+}
+
+function displayProducts(data = products) {
+
+    const container = document.getElementById("products");
+
+    container.innerHTML = "";
+
+    if (data.length === 0) {
+        container.innerHTML =
+            "<p>Produk tidak ditemukan.</p>";
+        return;
+    }
+
+    data.forEach(product => {
+
+        container.innerHTML += `
+            <div class="card">
+
+                <div class="product-img">
+                    ${product.icon}
+                </div>
+
+                <div class="card-content">
+
+                    <h3>${product.name}</h3>
+
+                    <div class="price">
+                        ${formatRupiah(product.price)}
+                    </div>
+
+                    <button
+                        class="add-btn"
+                        onclick="addToCart(${product.id})"
+                    >
+                        + Tambah ke Keranjang
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+    });
+}
+
+function addToCart(id) {
+
+    const product = products.find(p => p.id === id);
+
+    const existing = cart.find(item => item.id === id);
+
+    if (existing) {
+        existing.qty++;
+    } else {
+        cart.push({
+            ...product,
+            qty: 1
+        });
+    }
+
+    updateCart();
+}
+
+function changeQty(id, amount) {
+
+    const item = cart.find(item => item.id === id);
+
+    if (!item) return;
+
+    item.qty += amount;
+
+    if (item.qty <= 0) {
+        cart = cart.filter(item => item.id !== id);
+    }
+
+    updateCart();
+}
+
+function updateCart() {
+
+    const cartItems = document.getElementById("cartItems");
+
+    cartItems.innerHTML = "";
+
+    let total = 0;
+    let count = 0;
+
+    cart.forEach(item => {
+
+        total += item.price * item.qty;
+        count += item.qty;
+
+        cartItems.innerHTML += `
+            <div class="cart-item">
+
+                <div>
+                    <strong>${item.name}</strong>
+                    <br>
+                    <small>${formatRupiah(item.price)}</small>
+                </div>
+
+                <div class="qty">
+
+                    <button onclick="changeQty(${item.id}, -1)">
+                        −
+                    </button>
+
+                    <span>${item.qty}</span>
+
+                    <button onclick="changeQty(${item.id}, 1)">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+    });
+
+    if (cart.length === 0) {
+        cartItems.innerHTML =
+            "<p style='color:#777'>Keranjang masih kosong.</p>";
+    }
+
+    document.getElementById("cartCount").textContent = count;
+    document.getElementById("totalPrice").textContent =
+        formatRupiah(total);
+}
+
+function toggleCart() {
+    document
+        .getElementById("cartPanel")
+        .classList.toggle("active");
+}
+
+function searchProduct() {
+
+    const keyword =
+        document
+        .getElementById("search")
+        .value
+        .toLowerCase();
+
+    const result = products.filter(product =>
+        product.name
+        .toLowerCase()
+        .includes(keyword)
+    );
+
+    displayProducts(result);
+}
+
+function orderWhatsApp() {
+
+    if (cart.length === 0) {
+        alert("Keranjang masih kosong!");
+        return;
+    }
+
+    const name =
+        document.getElementById("customerName").value;
+
+    const address =
+        document.getElementById("customerAddress").value;
+
+    if (!name || !address) {
+        alert("Silakan isi nama dan alamat terlebih dahulu.");
+        return;
+    }
+
+    let message =
+        "Halo, saya ingin memesan Iwak Gatul:%0A%0A";
+
+    let total = 0;
+
+    cart.forEach(item => {
+
+        const subtotal =
+            item.price * item.qty;
+
+        total += subtotal;
+
+        message +=
+            `• ${item.name} x${item.qty} = ${formatRupiah(subtotal)}%0A`;
+    });
+
+    message +=
+        `%0ATotal: ${formatRupiah(total)}`;
+
+    message +=
+        `%0A%0ANama: ${name}`;
+
+    message +=
+        `%0AAlamat: ${address}`;
+
+    /*
+       GANTI NOMOR DI BAWAH DENGAN
+       NOMOR WHATSAPP TOKO ANDA.
+
+       Contoh:
+       6285175213066
+    */
+
+    const phone = "6285175213066";
+
+    window.open(
+        `https://wa.me/${phone}?text=${message}`,
+        "_blank"
+    );
+}
+
+displayProducts();
+updateCart();
+
+</script>
+
+</body>
+</html>
+```
+  
